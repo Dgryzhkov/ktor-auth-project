@@ -1,0 +1,1 @@
+rootProject.name = "com.dgryzhkov.ktor-auth-project"
