@@ -5,8 +5,9 @@ import com.dgryzhkov.plugins.configureMonitoring
 import com.dgryzhkov.plugins.configureRouting
 import com.dgryzhkov.plugins.configureSecurity
 import com.dgryzhkov.plugins.configureSerialization
-import com.dgryzhkov.secure.JwtTokenService
-import com.dgryzhkov.secure.TokenConfig
+import com.dgryzhkov.secururity.hashing.SHA256HashingService
+import com.dgryzhkov.secururity.token.JwtTokenService
+import com.dgryzhkov.secururity.token.TokenConfig
 import io.ktor.server.application.*
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
@@ -34,6 +35,8 @@ fun Application.module() {
         exiresIn = 365L*1000*60L*24L,
         secret = System.getenv("JWT_SECRET")
     )
+
+    val hashingService = SHA256HashingService()
     configureMonitoring()
     configureSerialization()
     configureSecurity()

@@ -1,4 +1,4 @@
-package com.dgryzhkov.secure
+package com.dgryzhkov.secururity.token
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
