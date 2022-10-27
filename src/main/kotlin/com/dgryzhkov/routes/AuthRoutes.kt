@@ -34,7 +34,7 @@ fun Route.signUp(
         val saltedHash = hashingService.generateSaltedHash(request.password)
         val user = User(
             userName = request.username,
-            password = request.password,
+            password = saltedHash.hash,
             salt = saltedHash.salt
         )
         val wasAcknowledged = userDataSource.insertUser(user)
