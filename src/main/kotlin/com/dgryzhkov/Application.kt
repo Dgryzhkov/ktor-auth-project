@@ -19,7 +19,7 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
 
     val mongoPassword = System.getenv("MONGO_PASSWORD")
-    val dbName ="ktor-notes"
+    val dbName = "ktor-notes"
     val db = KMongo.createClient(
         connectionString = "mongodb+srv://Dgryzhkov:<password>@cluster0.4skcucv.mongodb.net/?retryWrites=true&w=majority"
     )
@@ -32,13 +32,18 @@ fun Application.module() {
     val tokenConfig = TokenConfig(
         issuer = environment.config.property("jwt.issuer").getString(),
         audience = environment.config.property("jwt.audience").getString(),
-        exiresIn = 365L*1000*60L*24L,
+        exiresIn = 365L * 1000 * 60L * 24L,
         secret = System.getenv("JWT_SECRET")
     )
 
     val hashingService = SHA256HashingService()
     configureMonitoring()
     configureSerialization()
-    configureSecurity()
-    configureRouting()
+    configureSecurity(tokenConfig)
+    configureRouting(
+        userDataSource = userDataSource,
+        hashingService = hashingService,
+        tokenService = tokenService,
+        tokenConfig = tokenConfig
+    )
 }
