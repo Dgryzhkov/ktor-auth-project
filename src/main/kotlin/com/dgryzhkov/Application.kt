@@ -5,6 +5,8 @@ import com.dgryzhkov.plugins.configureMonitoring
 import com.dgryzhkov.plugins.configureRouting
 import com.dgryzhkov.plugins.configureSecurity
 import com.dgryzhkov.plugins.configureSerialization
+import com.dgryzhkov.secure.JwtTokenService
+import com.dgryzhkov.secure.TokenConfig
 import io.ktor.server.application.*
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
@@ -24,6 +26,14 @@ fun Application.module() {
         .getDatabase(dbName)
 
     val userDataSource = MongoUserDataSource(db)
+
+    val tokenService = JwtTokenService()
+    val tokenConfig = TokenConfig(
+        issuer = environment.config.property("jwt.issuer").getString(),
+        audience = environment.config.property("jwt.audience").getString(),
+        exiresIn = 365L*1000*60L*24L,
+        secret = System.getenv("JWT_SECRET")
+    )
     configureMonitoring()
     configureSerialization()
     configureSecurity()
