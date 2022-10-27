@@ -10,8 +10,7 @@ class JwtTokenService: TokenService {
             .withAudience(config.audience)
             .withIssuer(config.issuer)
             .withExpiresAt(Date(System.currentTimeMillis() + config.exiresIn))
-
-        claims.forEach { claim ->
+        claims.forEach {claim ->
             token = token.withClaim(claim.name, claim.value)
         }
         return token.sign(Algorithm.HMAC256(config.secret))

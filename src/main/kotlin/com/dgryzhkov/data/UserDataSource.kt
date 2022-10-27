@@ -4,7 +4,7 @@ import com.dgryzhkov.data.models.User
 
 interface UserDataSource {
 
-    suspend fun getUserByUserName(userName: String): User?
+    suspend fun getUserByUsername(username: String): User?
 
     suspend fun insertUser(user: User): Boolean
 }

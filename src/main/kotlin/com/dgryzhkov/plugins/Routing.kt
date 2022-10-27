@@ -1,6 +1,9 @@
 package com.dgryzhkov.plugins
 
 import com.dgryzhkov.data.UserDataSource
+import com.dgryzhkov.routes.getSecretInfo
+import com.dgryzhkov.routes.signIn
+import com.dgryzhkov.routes.signUp
 import com.dgryzhkov.secururity.hashing.HashingService
 import com.dgryzhkov.secururity.token.JwtTokenService
 import com.dgryzhkov.secururity.token.TokenConfig
@@ -14,8 +17,10 @@ fun Application.configureRouting(
     tokenService: JwtTokenService,
     tokenConfig: TokenConfig
 ) {
+
     routing {
-
+        signUp(hashingService = hashingService, userDataSource = userDataSource)
+        signIn(userDataSource, hashingService, tokenService, tokenConfig)
+        getSecretInfo()
     }
-
 }

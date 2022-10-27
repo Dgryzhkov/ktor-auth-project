@@ -10,12 +10,12 @@ class SHA256HashingService: HashingService {
         val saltAsHex = Hex.encodeHexString(salt)
         val hash = DigestUtils.sha256Hex("$saltAsHex$value")
         return SaltedHash(
-            hash=hash,
-            salt=saltAsHex
+            hash = hash,
+            salt = saltAsHex
         )
     }
 
     override fun verify(value: String, saltedHash: SaltedHash): Boolean {
-       return DigestUtils.sha256Hex(saltedHash.salt + value)==saltedHash.hash
+        return DigestUtils.sha256Hex(saltedHash.salt + value) == saltedHash.hash
     }
 }

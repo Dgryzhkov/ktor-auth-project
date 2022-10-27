@@ -1,6 +1,6 @@
 package com.dgryzhkov.secururity.hashing
 
-data class SaltedHash (
+data class SaltedHash(
     val hash: String,
     val salt: String
-        )
+)
